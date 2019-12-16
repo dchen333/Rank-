@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+<!-- Radio button based on https://www.w3schools.com/howto/howto_css_custom_checkbox.asp-->
+
+{% block style %}
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: darkgray;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+h1 {
+  color: white;
+  background-color: black;
+  padding: 10px;
+}
+div {
+  margin-left: 200px;
+}
+p.ex1{
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+input[type=submit] {
+    color: #fff;
+    background: darkslategray;
+    padding: 5px 15px;
+    border-radius: 3px;
+}
+{% endblock %}
+
+{% block body %}
+  <h1>Choose!</h1>
+  <p class="ex1"><i>Choose one of the following, then submit to continue</i></p>
+  <form action="/choose">
+    <label class="container"> {{ choices[index] }}
+      <input type="radio" name="yourpick" value="{{ index }}">
+      <span class="checkmark"></span>
+    </label>
+    <label class="container"> {{ choices[index + 1] }}
+      <input type="radio" name="yourpick" value="{{ index + 1 }}">
+      <span class="checkmark"></span>
+    </label>
+    <div>
+      <input id="choose" type="submit">
+    </div>
+  </form>
+{% endblock %}

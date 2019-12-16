@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block style %}
+div {
+  margin-left: 25px;
+}
+div.ex1 {
+  margin-left: 25px;
+}
+input[type=text] {
+  width: 50%;
+  padding: 0px 0 px 0px 0px;
+  margin: 8px;
+  box-sizing: border-box;
+}
+h1 {
+  color: white;
+  background-color: black;
+  padding: 10px;
+}
+h3 {
+    font-size: 1.2em;
+    color: DarkSlateGray;
+}
+input[type=submit] {
+    color: #fff;
+    background: darkslategray;
+    padding: 5px 15px;
+    border-radius: 3px;
+}
+input[type=button] {
+    color: black;
+    background: lightgray;
+    padding: 5px 15px;
+    border-radius: 3px;
+}
+{% endblock %}
+
+{% block body %}
+<h1>Choose!</h1>
+    <div class="ex1">
+        <h3>Choose! uses a topological sorting approach to help you determine a top preference among many choices</h3>
+        <i><b>Instructions:</b> Please enter your choices. These can be anything of the same category (e.g., choosing among Chinese, Japanese, Italian, and Mexican cuisine) - it's up to you!.
+        <br>You will then make a series of binary decisions between the entered choices until a top preference has been determined</br>
+        <br>You must fill at least one field, but you may leave fields blank if needed, or add more.</br>
+        <br>Submit when you are satisfied with the choices you entered</br>
+        </i>
+    </div>
+    <!--Script to dynamically add user inputted fields. Default is 4, limit of 14-->
+    <!--Simplified version of stackoverflow submission https://stackoverflow.com/questions/14853779/adding-input-elements-dynamically-to-form -->
+    <script>
+        var counter = 4;
+        var limit = 12;
+        function addInput(divName){
+             if (counter == limit)  {
+                  alert("Limit of" + counter + " inputs");
+             }
+             else {
+                  var newdiv = document.createElement('div');
+                  newdiv.innerHTML = "<input type='text' name='choice'>";
+                  document.getElementById(divName).appendChild(newdiv);
+                  counter++;
+             }
+        }
+    </script>
+    <form action="/choice">
+        <div id="dynamicInput" class="ex1">
+              <br><input type="text" name="choice">
+              <br><input type="text" name="choice">
+              <br><input type="text" name="choice">
+              <br><input type="text" name="choice">
+        </div>
+        <div class="ex1">
+            <input type="button" value="Add another choice" onClick="addInput('dynamicInput');">
+        </div>
+        <br>
+        <div class="ex1">
+            <input id="submit" type="submit">
+        </div>
+    </form>
+{% endblock %}
